@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do list</title>
+
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            background-color: #0e59d1a5;
+            padding: 2%;
+            border-radius: 2%;
+            margin: 0 auto;
+        }
+
+        .parent {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .todo {
+            display: flex;
+            width: 100%;
+            padding: 2%;
+        }
+
+        .todo input {
+            padding: 2%;
+            outline-color: green;
+        }
+
+        .add-btn {
+            background-color: #ebebeb;
+            padding: 2%;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>A Todo App</h2>
+
+        <div class="parent">
+            <div class="todo">
+                <input type="text" class="todo-input" placeholder="Add a task!" />
+                <button class="add-btn">Add task</button>
+            </div>
+        </div>
+
+        <!-- tsasks -->
+        <ul class="tasks"></ul>
+    </div>
+
+    <script>
+        const input = document.querySelector(".todo-input");
+        const btn = document.querySelector(".add-btn");
+        const tasks = document.querySelector(".tasks");
+
+        // function for todo
+        function todoApp() {
+            if (input.value === "") { // if input is empty ? reject
+                return;
+            }
+
+            // creating li element
+            const li = document.createElement("li");
+
+            // attaching input text to li element
+            li.textContent = input.value;
+
+            // making li cursor to pointe
+            li.style.cursor = "pointer";
+            li.style.listStyleType = "none";
+            li.style.color = "#fff"
+
+            // clear input text
+            input.value = "";
+
+            // assign li to its parent ul
+            tasks.appendChild(li)
+
+            // adding event to the li, in order to delete it
+            li.addEventListener("click", function () {
+                li.remove();
+            });
+
+            let value = input.value;
+
+            // store in localStorage
+            localStorage.setItem("tasks", value)
+        }
+
+
+        btn.addEventListener("click", todoApp);
+    </script>
+
+</body>
+
+</html>
